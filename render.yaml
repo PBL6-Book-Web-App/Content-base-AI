@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: ContentBaseModel
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python relativeAPI.py
+    envVars:
+      - key: DB_HOST
+        value: dpg-cob66dmn7f5s739dh4lg-a.oregon-postgres.render.com
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_USER
+        value: pbl7_book_recommendation_database_user
+      - key: DB_PASS
+        value: JaDBL15VZgFcV5QGp6tf6bmh2SoKjCKG
+      - key: DB_NAME
+        value: pbl7_book_recommendation_database
+    build:
+      installPackages:
+        - libpq-dev
+        - python3-dev
+        - build-essential

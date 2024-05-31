@@ -2,6 +2,9 @@ from flask import Flask, jsonify, request
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from flask_cors import CORS, cross_origin
+import os
+
+database_url = os.environ.get("DATABASE_URL")
 
 app = Flask(__name__)
 # Apply Flask CORS
@@ -9,11 +12,11 @@ CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 
 # Thông tin kết nối đến cơ sở dữ liệu
-DB_HOST = "dpg-cob66dmn7f5s739dh4lg-a.oregon-postgres.render.com"
-DB_PORT = 5432
-DB_USER = "pbl7_book_recommendation_database_user"
-DB_PASS = "JaDBL15VZgFcV5QGp6tf6bmh2SoKjCKG"
-DB_NAME = "pbl7_book_recommendation_database"
+DB_HOST = os.environ.get("DB_HOST", "default_host")
+DB_PORT = int(os.environ.get("DB_PORT", 5432))
+DB_USER = os.environ.get("DB_USER", "default_user")
+DB_PASS = os.environ.get("DB_PASS", "default_password")
+DB_NAME = os.environ.get("DB_NAME", "default_database")
 
 
 # Hàm kết nối đến cơ sở dữ liệu và thực hiện truy vấn
