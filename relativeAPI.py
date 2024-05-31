@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import numpy as np
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from flask_cors import CORS, cross_origin
@@ -18,6 +19,12 @@ DB_USER = os.environ.get("DB_USER", "default_user")
 DB_PASS = os.environ.get("DB_PASS", "default_password")
 DB_NAME = os.environ.get("DB_NAME", "default_database")
 
+# Load ma trận tương đồng từ file .npy
+cos_sim = np.load(
+    "./top_similar_books.npy",
+    allow_pickle=True,
+)
+
 
 # Hàm kết nối đến cơ sở dữ liệu và thực hiện truy vấn
 def query_db(query, params=None):
@@ -32,32 +39,26 @@ def query_db(query, params=None):
     return results
 
 
-# Giả sử hàm này sử dụng mô hình AI của bạn để tìm ra 10 sách liên quan từ một ID sách
+# Content-based recommendation
 def get_recommended_book_ids(book_id):
-    # Đây chỉ là ví dụ, bạn cần thay thế bằng mã xử lý AI thực sự của mình
-    # Ở đây, tôi sẽ trả về 10 ID sách giả định
-    return [
-        "247293",
-        "249178",
-        "249166",
-        "0812568710",
-        "1570714347",
-        "0385483872",
-        "0590433369",
-        "0307001164",
-        "263694",
-        "0809288346",
-    ]
+    # find the index of the book
+    book_index = np.where(cos_sim[:, 0, 0] == book_id)
+    if len(book_index[0]) == 0:
+        return []
+    # get the top 10 similar books
+    recommended_books = cos_sim[book_index, 1:11, 0][0][0]
+    return list(recommended_books)
 
 
 # API để trả về danh sách sách dựa trên danh sách id
-@app.route("/content-based-recommend/<int:book_id>", methods=["GET"])
+@app.route("/content-based-recommend/<string:book_id>", methods=["GET"])
 @cross_origin(origin="*")  # Fix to current web domain
 def get_books(book_id):
     if not book_id:
         return jsonify({"error": "No book ID provided"}), 400
 
     recommend_books = get_recommended_book_ids(book_id)
+    print(recommend_books)
 
     # Truy vấn thông tin sách và tác giả từ cơ sở dữ liệu
     books_query = """
