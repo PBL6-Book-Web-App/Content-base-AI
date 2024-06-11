@@ -69,12 +69,13 @@ def get_books(book_source):
         return jsonify({"data": []})
 
     # Tạo danh sách các giá trị (book_id, source_id) để sử dụng trong câu lệnh SQL
-    recommend_books_str = ", ".join(
-        [
-            f"('{b[0]}', {b[1]})" if isinstance(b[0], str) else f"({b[0]}, {b[1]})"
-            for b in recommend_books
-        ]
-    )
+    recommend_books_str = ", ".join([f"('{b[0]}', {b[1]})" for b in recommend_books])
+
+    # Tạo mệnh đề ORDER BY theo thứ tự của recommend_books
+    order_by_case = "CASE"
+    for index, b in enumerate(recommend_books):
+        order_by_case += f" WHEN b.id = '{b[0]}' AND b.source_id = {b[1]} THEN {index}"
+    order_by_case += " END"
 
     # Truy vấn thông tin sách và tác giả từ cơ sở dữ liệu
     books_query = (
@@ -103,7 +104,8 @@ def get_books(book_source):
         LEFT JOIN author a ON atb.author_id = a.id
         WHERE (b.id, b.source_id) IN ("""
         + recommend_books_str
-        + ")GROUP BY b.id"
+        + ")GROUP BY b.id  ORDER BY "
+        + order_by_case
     )
     books = query_db(books_query)
 
