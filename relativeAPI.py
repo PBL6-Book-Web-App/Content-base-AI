@@ -58,15 +58,15 @@ def get_recommended_book_ids(book_id, source_id):
 def get_books(book_source):
     if not book_source:
         return jsonify({"error": "No book ID provided"}), 400
-    elif book_source.count("-") != 1:
+    try:
+        book_id, source_id = book_source.split("-")
+    except ValueError:
         return jsonify({"error": "Invalid book ID format"}), 400
 
-    book_id, source_id = book_source.split("-")
-
-    recommend_books = get_recommended_book_ids(book_id, source_id)
+    # recommend_books = [[book1_id, source1_id], [book2_id, source2_id], ...]
+    recommend_books = get_recommended_book_ids(book_id, int(source_id))
     if not recommend_books:
         return jsonify({"data": []})
-    # recommend_books = [[book1_id, source1_id], [book2_id, source2_id], ...]
 
     # Tạo danh sách các giá trị (book_id, source_id) để sử dụng trong câu lệnh SQL
     recommend_books_str = ", ".join([f"({b[0]}, {b[1]})" for b in recommend_books])
