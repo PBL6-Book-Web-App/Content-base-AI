@@ -69,7 +69,12 @@ def get_books(book_source):
         return jsonify({"data": []})
 
     # Tạo danh sách các giá trị (book_id, source_id) để sử dụng trong câu lệnh SQL
-    recommend_books_str = ", ".join([f"({b[0]}, {b[1]})" for b in recommend_books])
+    recommend_books_str = ", ".join(
+        [
+            f"('{b[0]}', {b[1]})" if isinstance(b[0], str) else f"({b[0]}, {b[1]})"
+            for b in recommend_books
+        ]
+    )
 
     # Truy vấn thông tin sách và tác giả từ cơ sở dữ liệu
     books_query = (
