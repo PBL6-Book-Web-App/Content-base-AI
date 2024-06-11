@@ -120,33 +120,12 @@ def get_books(book_source):
         source["id"]: source for source in query_db(sources_query, (source_ids,))
     }
 
-    # Truy vấn thông tin tương tác từ cơ sở dữ liệu
-    interactions_query = """
-        SELECT
-            i.book_id,
-            json_agg(
-                json_build_object(
-                    'user_id', i.user_id,
-                    'type', i.type,
-                    'value', i.value
-                )
-            ) AS interactions
-        FROM interaction i
-        WHERE i.book_id = ANY(%s)
-        GROUP BY i.book_id
-    """
-    book_ids = [rb[0] for rb in recommend_books]
-    interactions = {
-        interaction["book_id"]: interaction["interactions"]
-        for interaction in query_db(interactions_query, (book_ids,))
-    }
-
     # Kết hợp thông tin nguồn và interactions vào dữ liệu sách
     for book in books:
         book["source"] = sources.get(
             book["source_id"], {"id": book["source_id"], "name": "Unknown"}
         )
-        book["interactions"] = interactions.get(book["id"], [])
+        book["interactions"] = []
 
     return jsonify({"data": books})
 
