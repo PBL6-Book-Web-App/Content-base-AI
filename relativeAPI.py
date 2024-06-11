@@ -40,28 +40,35 @@ def query_db(query, params=None):
 
 
 # Content-based recommendation
-def get_recommended_book_ids(book_id):
+def get_recommended_book_ids(book_id, source_id):
     # find the index of the book
-    book_index = np.where(cos_sim[:, 0, 0] == book_id)
+    book_index = np.where(
+        (cos_sim[:, 0, 0] == book_id) & (cos_sim[:, 0, 1] == source_id)
+    )
     if len(book_index[0]) == 0:
         return []
     # get the top 10 similar books
-    recommended_books = cos_sim[book_index, 1:11, 0][0][0]
+    recommended_books = cos_sim[book_index, 1:11, 0:2][0][0]
     return list(recommended_books)
 
 
 # API để trả về danh sách sách dựa trên danh sách id
-@app.route("/content-based-recommend/<string:book_id>", methods=["GET"])
+@app.route("/content-based-recommend/<string:book_source>", methods=["GET"])
 @cross_origin(origin="*")  # Fix to current web domain
-def get_books(book_id):
-    if not book_id:
+def get_books(book_source):
+    if not book_source:
         return jsonify({"error": "No book ID provided"}), 400
 
-    recommend_books = get_recommended_book_ids(book_id)
-    print(recommend_books)
+    book_id, source_id = book_source.split("-")
+
+    recommend_books = get_recommended_book_ids(book_id, source_id)
+    # recommend_books = [[book1_id, source1_id], [book2_id, source2_id], ...]
+
+    # Tạo danh sách các giá trị (book_id, source_id) để sử dụng trong câu lệnh SQL
+    recommend_books_str = ", ".join([f"({b[0]}, {b[1]})" for b in recommend_books])
 
     # Truy vấn thông tin sách và tác giả từ cơ sở dữ liệu
-    books_query = """
+    books_query = f"""
         SELECT
             b.id,
             b.title,
@@ -84,10 +91,10 @@ def get_books(book_id):
         FROM book b
         LEFT JOIN author_to_book atb ON b.id = atb.book_id
         LEFT JOIN author a ON atb.author_id = a.id
-        WHERE b.id = ANY(%s)
+        WHERE (b.id, b.source_id) IN ({recommend_books_str})
         GROUP BY b.id
     """
-    books = query_db(books_query, (recommend_books,))
+    books = query_db(books_query)
 
     # Truy vấn thông tin nguồn từ cơ sở dữ liệu
     source_ids = [book["source_id"] for book in books]
