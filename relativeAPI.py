@@ -72,7 +72,8 @@ def get_books(book_source):
     recommend_books_str = ", ".join([f"({b[0]}, {b[1]})" for b in recommend_books])
 
     # Truy vấn thông tin sách và tác giả từ cơ sở dữ liệu
-    books_query = f"""
+    books_query = (
+        """
         SELECT
             b.id,
             b.title,
@@ -95,9 +96,10 @@ def get_books(book_source):
         FROM book b
         LEFT JOIN author_to_book atb ON b.id = atb.book_id
         LEFT JOIN author a ON atb.author_id = a.id
-        WHERE (b.id, b.source_id) IN ({recommend_books_str})
-        GROUP BY b.id
-    """
+        WHERE (b.id, b.source_id) IN ("""
+        + recommend_books_str
+        + ")GROUP BY b.id"
+    )
     books = query_db(books_query)
 
     # Truy vấn thông tin nguồn từ cơ sở dữ liệu
