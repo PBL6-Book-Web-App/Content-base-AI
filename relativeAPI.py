@@ -135,9 +135,10 @@ def get_books(book_source):
         WHERE i.book_id = ANY(%s)
         GROUP BY i.book_id
     """
+    book_ids = [rb[0] for rb in recommend_books]
     interactions = {
         interaction["book_id"]: interaction["interactions"]
-        for interaction in query_db(interactions_query, (recommend_books,))
+        for interaction in query_db(interactions_query, (book_ids,))
     }
 
     # Kết hợp thông tin nguồn và interactions vào dữ liệu sách
