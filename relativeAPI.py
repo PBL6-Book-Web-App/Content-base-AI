@@ -33,7 +33,11 @@ def query_db(query, params=None):
     )
     cursor = conn.cursor(cursor_factory=RealDictCursor)
     cursor.execute(query, params)
-    results = cursor.fetchall()
+    if query.strip().lower().startswith("select"):
+        results = cursor.fetchall()
+    else:
+        conn.commit()  # Commit the transaction for non-select queries
+        results = None
     cursor.close()
     conn.close()
     return results
@@ -126,6 +130,21 @@ def get_books(book_source):
             book["source_id"], {"id": book["source_id"], "name": "Unknown"}
         )
         book["interactions"] = []
+
+    token = request.headers.get("Authorization")
+    if token:
+        count_query = """
+            SELECT mr.count
+            FROM model_request mr
+            WHERE mr.model_type = 'CONTENT_BASED'
+        """
+        current_count = query_db(count_query)[0].get("count")
+        update_query = """
+            UPDATE model_request
+            SET count = %s
+            WHERE model_type = 'CONTENT_BASED'
+        """
+        query_db(update_query, (current_count + 1,))
 
     return jsonify({"data": books})
 
