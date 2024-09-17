@@ -1,0 +1,254 @@
+{
+  "data": [
+    {
+      "authors": [
+        {
+          "author": {
+            "avatar": null,
+            "id": null,
+            "name": null
+          }
+        }
+      ],
+      "averageRating": 4.2,
+      "bookCover": "Paperback",
+      "id": "9557495",
+      "imageUrl": "https://i.thriftbooks.com/api/imagehandler/m/FD89CF52999960C3F8AE40B4C4D890EDA0B00505.jpeg",
+      "interactions": [],
+      "language": null,
+      "price": 6.09,
+      "releaseDate": "Tue, 04 Oct 2016 00:00:00 GMT",
+      "source": {
+        "id": 1,
+        "name": "Thrift Books"
+      },
+      "source_id": 1,
+      "title": "The Secret Chord"
+    },
+    {
+      "authors": [
+        {
+          "author": {
+            "avatar": null,
+            "id": null,
+            "name": null
+          }
+        }
+      ],
+      "averageRating": 3.6111112,
+      "bookCover": "Paperback",
+      "id": "249607",
+      "imageUrl": "https://i.thriftbooks.com/api/imagehandler/m/5A6E01851E7DEC0C426868DBE1EB0D1B8410DFAF.jpeg",
+      "interactions": [],
+      "language": null,
+      "price": 4.99,
+      "releaseDate": "Tue, 31 Jan 2006 00:00:00 GMT",
+      "source": {
+        "id": 1,
+        "name": "Thrift Books"
+      },
+      "source_id": 1,
+      "title": "March"
+    },
+    {
+      "authors": [
+        {
+          "author": {
+            "avatar": null,
+            "id": "b4a647a9-56b5-489c-b550-497df2f88da7",
+            "name": "Steven Farley"
+          }
+        }
+      ],
+      "averageRating": 3,
+      "bookCover": "Paperback",
+      "id": "0679891412",
+      "imageUrl": "http://images.amazon.com/images/P/0679891412.01.LZZZZZZZ.jpg",
+      "interactions": [],
+      "language": null,
+      "price": null,
+      "releaseDate": null,
+      "source": {
+        "id": 4,
+        "name": "Book Crossing"
+      },
+      "source_id": 4,
+      "title": "The Promise (Young Black Stallion, #1)"
+    },
+    {
+      "authors": [
+        {
+          "author": {
+            "avatar": null,
+            "id": "e01b8efd-53fa-41e9-af25-c9957c54d395",
+            "name": "Dick Francis"
+          }
+        }
+      ],
+      "averageRating": 4,
+      "bookCover": "Paperback",
+      "id": "0449202623",
+      "imageUrl": "http://images.amazon.com/images/P/0449202623.01.LZZZZZZZ.jpg",
+      "interactions": [],
+      "language": null,
+      "price": null,
+      "releaseDate": null,
+      "source": {
+        "id": 4,
+        "name": "Book Crossing"
+      },
+      "source_id": 4,
+      "title": "Banker"
+    },
+    {
+      "authors": [
+        {
+          "author": {
+            "avatar": null,
+            "id": "e01b8efd-53fa-41e9-af25-c9957c54d395",
+            "name": "Dick Francis"
+          }
+        }
+      ],
+      "averageRating": 4,
+      "bookCover": "Mass Market Paperback",
+      "id": "0449211991",
+      "imageUrl": "http://images.amazon.com/images/P/0449211991.01.LZZZZZZZ.jpg",
+      "interactions": [],
+      "language": null,
+      "price": null,
+      "releaseDate": null,
+      "source": {
+        "id": 4,
+        "name": "Book Crossing"
+      },
+      "source_id": 4,
+      "title": "Banker"
+    },
+    {
+      "authors": [
+        {
+          "author": {
+            "avatar": null,
+            "id": "e01b8efd-53fa-41e9-af25-c9957c54d395",
+            "name": "Dick Francis"
+          }
+        }
+      ],
+      "averageRating": 4,
+      "bookCover": "Hardcover",
+      "id": "039912778X",
+      "imageUrl": "http://images.amazon.com/images/P/039912778X.01.LZZZZZZZ.jpg",
+      "interactions": [],
+      "language": null,
+      "price": null,
+      "releaseDate": null,
+      "source": {
+        "id": 4,
+        "name": "Book Crossing"
+      },
+      "source_id": 4,
+      "title": "Banker"
+    },
+    {
+      "authors": [
+        {
+          "author": {
+            "avatar": null,
+            "id": "1cf6db19-2c45-4988-912e-2c1c2a45c692",
+            "name": "Ronald Frede Delderfield"
+          }
+        }
+      ],
+      "averageRating": 4,
+      "bookCover": "NaN",
+      "id": "0671822632",
+      "imageUrl": "http://images.amazon.com/images/P/0671822632.01.LZZZZZZZ.jpg",
+      "interactions": [],
+      "language": null,
+      "price": null,
+      "releaseDate": null,
+      "source": {
+        "id": 4,
+        "name": "Book Crossing"
+      },
+      "source_id": 4,
+      "title": "Post of Honor (A Horseman Riding By, #2)"
+    },
+    {
+      "authors": [
+        {
+          "author": {
+            "avatar": null,
+            "id": null,
+            "name": null
+          }
+        }
+      ],
+      "averageRating": 3.7272727,
+      "bookCover": "Hardcover",
+      "id": "249749",
+      "imageUrl": "https://i.thriftbooks.com/api/imagehandler/m/8A1AC9EBBF2C90C28B595E27F3A9BEDEF4842827.jpeg",
+      "interactions": [],
+      "language": null,
+      "price": 5.39,
+      "releaseDate": "Tue, 03 May 2011 00:00:00 GMT",
+      "source": {
+        "id": 1,
+        "name": "Thrift Books"
+      },
+      "source_id": 1,
+      "title": "Caleb's Crossing"
+    },
+    {
+      "authors": [
+        {
+          "author": {
+            "avatar": null,
+            "id": "1918f6a0-85d9-4399-ba00-e9631238348e",
+            "name": "Gerald Hausman"
+          }
+        }
+      ],
+      "averageRating": 3,
+      "bookCover": "Paperback",
+      "id": "060980846X",
+      "imageUrl": "http://images.amazon.com/images/P/060980846X.01.LZZZZZZZ.jpg",
+      "interactions": [],
+      "language": null,
+      "price": null,
+      "releaseDate": null,
+      "source": {
+        "id": 4,
+        "name": "Book Crossing"
+      },
+      "source_id": 4,
+      "title": "The Mythology of Horses: Horse Legend and Lore Throughout the Ages"
+    },
+    {
+      "authors": [
+        {
+          "author": {
+            "avatar": null,
+            "id": "4e383eee-43d9-4ec8-b061-bd7bcf9903c4",
+            "name": "Geraldine Brooks"
+          }
+        }
+      ],
+      "averageRating": 4,
+      "bookCover": "NaN",
+      "id": "0142001430",
+      "imageUrl": "http://images.amazon.com/images/P/0142001430.01.LZZZZZZZ.jpg",
+      "interactions": [],
+      "language": null,
+      "price": null,
+      "releaseDate": null,
+      "source": {
+        "id": 4,
+        "name": "Book Crossing"
+      },
+      "source_id": 4,
+      "title": "Year of Wonders"
+    }
+  ]
+}

@@ -13,11 +13,11 @@ CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 
 # Thông tin kết nối đến cơ sở dữ liệu
-DB_HOST = os.environ.get("DB_HOST", "default_host")
+DB_HOST = os.environ.get("DB_HOST", "localhost")
 DB_PORT = int(os.environ.get("DB_PORT", 5432))
-DB_USER = os.environ.get("DB_USER", "default_user")
-DB_PASS = os.environ.get("DB_PASS", "default_password")
-DB_NAME = os.environ.get("DB_NAME", "default_database")
+DB_USER = os.environ.get("DB_USER", "postgres")
+DB_PASS = os.environ.get("DB_PASS", "99772205")
+DB_NAME = os.environ.get("DB_NAME", "PBL6")
 
 # Load ma trận tương đồng từ file .npy
 cos_sim = np.load(
@@ -64,6 +64,7 @@ def get_books(book_source):
         return jsonify({"error": "No book ID provided"}), 400
     try:
         book_id, source_id = book_source.split("-")
+        print(book_id, source_id)
     except ValueError:
         return jsonify({"error": "Invalid book ID format"}), 400
 
@@ -113,6 +114,11 @@ def get_books(book_source):
     )
     books = query_db(books_query)
 
+    if not books:
+        with open("default.json", "r") as f:
+            books = f.read()
+        return books
+
     # Truy vấn thông tin nguồn từ cơ sở dữ liệu
     source_ids = [book["source_id"] for book in books]
     sources_query = """
@@ -150,5 +156,5 @@ def get_books(book_source):
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 5500))
     app.run(host="0.0.0.0", port=port, debug=True)
